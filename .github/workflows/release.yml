@@ -14,10 +14,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - run: npm ci
-      - run: npm lint
-      - run: npm run build
-      - run: npm sematic-release
+      - run: yarn
+      - run: yarn run lint
+      - run: yarn run build
+      - run: yarn run sematic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_ACTION }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
