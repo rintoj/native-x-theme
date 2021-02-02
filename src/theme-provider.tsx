@@ -26,12 +26,13 @@ export interface ThemeConfig {
 }
 
 interface Props {
+  theme: string
   themes: { [id: string]: ThemeConfig }
   children: ReactNode | ReactNode[]
 }
 
-export function ThemeProvider({ themes = {}, children }: Props) {
-  const [themeName, switchTheme] = useState(() => Object.keys(themes)[0])
+export function ThemeProvider({ theme, themes = {}, children }: Props) {
+  const [themeName, switchTheme] = useState(theme)
 
   const getColor = useCallback(
     (name: string, theme?: string) => {
