@@ -17,7 +17,7 @@ jobs:
       - run: yarn
       - run: yarn run lint
       - run: yarn run build
-      - run: yarn run sematic-release
+      - run: yarn run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_ACTION }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
