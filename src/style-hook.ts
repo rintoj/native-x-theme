@@ -8,8 +8,8 @@ export interface BackgroundColorStyleProps {
 }
 
 export type Color = string
-export interface ColorStyleProps {
-  color?: Color
+export interface TextColorStyleProps {
+  textColor?: Color
 }
 
 export type BorderColor = string
@@ -206,18 +206,18 @@ export function useShadowStyle({ shadow, shadowColor }: ShadowStyleProps) {
   )
 }
 
-export type TextStyleProps = FontSizeStyleProps & ColorStyleProps & LineHeightStyleProps
+export type TextStyleProps = FontSizeStyleProps & LineHeightStyleProps & TextColorStyleProps
 
 export function useTextStyle(props: TextStyleProps | undefined = {}) {
   const { getTextColor } = useTheme()
-  const { color, fontSize, lineHeight } = props
+  const { fontSize, lineHeight, textColor } = props
   return useMemo(
     () =>
       [
-        getTextColor(color as string),
+        getTextColor(textColor as string),
         LINE_HEIGHT[lineHeight as LineHeight],
         FONT_SIZE[fontSize as FontSize],
       ].filter(i => i != null),
-    [color, fontSize, getTextColor, lineHeight],
+    [textColor, fontSize, getTextColor, lineHeight],
   )
 }
