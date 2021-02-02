@@ -1,5 +1,5 @@
 {
-  "name": "@native-x/theme",
+  "name": "native-x-theme",
   "version": "0.0.0-development",
   "description": "Theme setup for native-x components",
   "main": "lib/index.js",
