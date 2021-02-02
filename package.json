@@ -1,6 +1,6 @@
 {
   "name": "@native-x/theme",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Theme setup for native-x components",
   "main": "lib/index.js",
   "repository": "https://github.com/rintoj/native-x-theme.git",
@@ -10,7 +10,8 @@
     "build": "yarn run lint && rimraf lib && tsc",
     "lint": "eslint src/**/*.ts? --fix && tsc -p . --noEmit && yarn prettier",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\" -c",
-    "prepublish": "yarn run build"
+    "prepublish": "yarn run build",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "tachyons-react-native": "^1.0.4"
@@ -29,6 +30,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-native": "^0.63.4",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.3.7"
   }
 }
