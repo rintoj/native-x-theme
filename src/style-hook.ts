@@ -3,17 +3,17 @@ import { styles as s } from 'tachyons-react-native'
 import { BorderSide, useTheme } from './theme-provider'
 
 export type BackgroundColor = string
-export interface BackgroundColorProps {
+export interface BackgroundColorStyleProps {
   backgroundColor?: BackgroundColor
 }
 
 export type Color = string
-export interface ColorProps {
+export interface ColorStyleProps {
   color?: Color
 }
 
 export type BorderColor = string
-export interface BorderColorProps {
+export interface BorderColorStyleProps {
   borderColor?: BorderColor
   borderLeftColor?: BorderColor
   borderRightColor?: BorderColor
@@ -30,7 +30,7 @@ export const BORDER_SIZE = {
   'xxx-large': s.bw5,
 }
 export type BorderSize = keyof typeof BORDER_SIZE
-export interface BorderSizeProps {
+export interface BorderSizeStyleProps {
   border?: BorderSize | boolean
 }
 
@@ -42,7 +42,7 @@ export const BORDER_RADIUS = {
   round: s.brPill,
 }
 export type BorderRadius = keyof typeof BORDER_RADIUS
-export interface BorderRadiusProps {
+export interface BorderRadiusStyleProps {
   borderRadius?: BorderRadius
 }
 
@@ -68,7 +68,7 @@ const SHADOW = {
   },
 }
 export type Shadow = keyof typeof SHADOW
-export interface ShadowProps {
+export interface ShadowStyleProps {
   shadow?: Shadow
   shadowColor?: Color
 }
@@ -82,7 +82,7 @@ export const OPACITY = {
   full: s.o100,
 }
 export type Opacity = keyof typeof OPACITY
-export interface OpacityProps {
+export interface OpacityStyleProps {
   opacity?: Opacity
 }
 
@@ -98,7 +98,7 @@ export const FONT_SIZE = {
   'xxx-large': { fontSize: 48, lineHeight: 64 },
 }
 export type FontSize = keyof typeof FONT_SIZE
-export interface FontSizeProps {
+export interface FontSizeStyleProps {
   fontSize?: FontSize
 }
 
@@ -123,7 +123,7 @@ export const PADDING = {
   'vertical:x-small': s.pv1,
 }
 export type Padding = keyof typeof PADDING
-export interface PaddingProps {
+export interface PaddingStyleProps {
   padding?: Padding | Padding[]
 }
 
@@ -133,20 +133,20 @@ export const LINE_HEIGHT = {
   relax: { lineHeight: 42 },
 }
 export type LineHeight = keyof typeof LINE_HEIGHT
-export interface LineHeightProps {
+export interface LineHeightStyleProps {
   lineHeight?: LineHeight
 }
 
-export type StyleProps = BackgroundColorProps &
-  ColorProps &
-  BorderColorProps &
-  BorderSizeProps &
-  BorderRadiusProps &
-  OpacityProps &
-  ShadowProps &
-  PaddingProps
+export type ContainerStyleProps = BackgroundColorStyleProps &
+  ColorStyleProps &
+  BorderColorStyleProps &
+  BorderSizeStyleProps &
+  BorderRadiusStyleProps &
+  OpacityStyleProps &
+  ShadowStyleProps &
+  PaddingStyleProps
 
-export function useStyle(props: StyleProps | undefined = {}) {
+export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
   const { getBackgroundColor, getTextColor, getBorderColor } = useTheme()
   const {
     backgroundColor,
@@ -199,7 +199,7 @@ export function useStyle(props: StyleProps | undefined = {}) {
   )
 }
 
-export function useShadowStyle({ shadow, shadowColor }: ShadowProps) {
+export function useShadowStyle({ shadow, shadowColor }: ShadowStyleProps) {
   const { getColor } = useTheme()
   return useMemo(
     () =>
@@ -211,9 +211,9 @@ export function useShadowStyle({ shadow, shadowColor }: ShadowProps) {
   )
 }
 
-export function useFontStyle(
-  props: (FontSizeProps & ColorProps & LineHeightProps) | undefined = {},
-) {
+export type TextStyleProps = FontSizeStyleProps & ColorStyleProps & LineHeightStyleProps
+
+export function useTextStyle(props: TextStyleProps | undefined = {}) {
   const { getTextColor } = useTheme()
   const { color, fontSize, lineHeight } = props
   return useMemo(
