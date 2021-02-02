@@ -185,3 +185,13 @@ function MyComponent({ shadow, shadowColor }: Props) {
   return <Text style={style}>{...}</Text>
 }
 ```
+
+## Automatic Release
+
+Here is an example of the release type that will be done based on a commit messages:
+
+| Commit message                                                     | Release type          |
+| ------------------------------------------------------------------ | --------------------- |
+| fix(pencil): stop graphite breaking when too much pressure applied | Patch Release         |
+| feat(pencil): add 'graphiteWidth' option                           | Minor Feature Release |
+| perf(pencil): remove graphiteWidth option                          | Major Feature Release |
