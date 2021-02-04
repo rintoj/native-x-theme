@@ -195,8 +195,11 @@ function MyComponent({ shadow, shadowColor }: Props) {
 
 Here is an example of the release type that will be done based on a commit messages:
 
-| Commit message                                                     | Release type          |
-| ------------------------------------------------------------------ | --------------------- |
-| fix(pencil): stop graphite breaking when too much pressure applied | Patch Release         |
-| feat(pencil): add 'graphiteWidth' option                           | Minor Feature Release |
-| perf(pencil): remove graphiteWidth option                          | Major Feature Release |
+| Commit message      | Release type          |
+| ------------------- | --------------------- |
+| fix: [comment]      | Patch Release         |
+| feat: [comment]     | Minor Feature Release |
+| perf: [comment]     | Major Feature Release |
+| doc: [comment]      | No Release            |
+| refactor: [comment] | No Release            |
+| chore: [comment]    | No Release            |
