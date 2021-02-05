@@ -21,22 +21,7 @@ npm install native-x-theme
 ## Usage
 
 ```tsx
-import { ThemeProvider } from '@native-x/theme'
-
-export enum COLOR {
-  PRIMARY = 'PRIMARY',
-  SECONDARY = 'SECONDARY',
-  TERTIARY = 'TERTIARY',
-  ACCENT = 'ACCENT',
-  DIVIDER = 'DIVIDER',
-  DISABLED = 'DISABLED',
-  TRANSPARENT = 'TRANSPARENT',
-}
-
-export enum THEME {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
+import { COLOR, THEME, ThemeProvider } from '@native-x/theme'
 
 export const THEMES = {
   [THEME.LIGHT]: {
@@ -46,6 +31,9 @@ export const THEMES = {
     [COLOR.ACCENT]: '#0AD572',
     [COLOR.DIVIDER]: '#BDBDBD',
     [COLOR.DISABLED]: '#F5F5F5',
+    [COLOR.SUCCESS]: '#63D471',
+    [COLOR.ERROR]: '#ED2733',
+    [COLOR.WARNING]: '#F9D101',
     [COLOR.TRANSPARENT]: 'transparent',
   },
   [THEME.DARK]: {
@@ -55,6 +43,9 @@ export const THEMES = {
     [COLOR.ACCENT]: '#71F28F',
     [COLOR.DIVIDER]: '#707070',
     [COLOR.DISABLED]: '#252525',
+    [COLOR.SUCCESS]: '#63D471',
+    [COLOR.ERROR]: '#ED2733',
+    [COLOR.WARNING]: '#F9D101',
     [COLOR.TRANSPARENT]: 'transparent',
   },
 }

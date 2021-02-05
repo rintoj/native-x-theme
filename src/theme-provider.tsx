@@ -1,5 +1,23 @@
 import React, { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 
+export enum COLOR {
+  PRIMARY = 'PRIMARY',
+  SECONDARY = 'SECONDARY',
+  TERTIARY = 'TERTIARY',
+  ACCENT = 'ACCENT',
+  DIVIDER = 'DIVIDER',
+  DISABLED = 'DISABLED',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  WARNING = 'WARNING',
+  TRANSPARENT = 'TRANSPARENT',
+}
+
+export enum THEME {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
 export enum BorderSide {
   ALL = 'ALL',
   TOP = 'TOP',
@@ -13,10 +31,22 @@ interface ThemeContextType {
   themeName: string
   currentTheme: ThemeConfig
   switchTheme: (name: string) => void
-  getColor: (name: string, theme?: string) => void
-  getBackgroundColor: (name: string, theme?: string) => void
-  getTextColor: (name: string, theme?: string) => void
-  getBorderColor: (name: string, side?: BorderSide, theme?: string) => void
+  getColor: (name: string, theme?: string) => string | undefined
+  getBackgroundColor: (name: string, theme?: string) => { backgroundColor?: string } | undefined
+  getTextColor: (name: string, theme?: string) => { color?: string } | undefined
+  getBorderColor: (
+    name: string,
+    side?: BorderSide,
+    theme?: string,
+  ) =>
+    | {
+        borderColor?: string
+        borderTopColor?: string
+        borderRightColor?: string
+        borderBottomColor?: string
+        borderLeftColor?: string
+      }
+    | undefined
 }
 
 const ThemeContext = createContext<ThemeContextType>({} as never)
