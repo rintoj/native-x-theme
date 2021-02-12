@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { styles as s } from 'tachyons-react-native'
-import { BorderSide, useTheme } from './theme-provider'
+import { BorderSide, COLOR, useTheme } from './theme-provider'
 
 export type BackgroundColor = string
 export interface BackgroundColorStyleProps {
@@ -164,7 +164,7 @@ export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
     () =>
       [
         getBackgroundColor(backgroundColor as string),
-        border === true ? [getBorderColor('divider'), BORDER_SIZE.normal] : undefined,
+        border === true ? [getBorderColor(COLOR.DIVIDER), BORDER_SIZE.normal] : undefined,
         getBorderColor(borderColor as string),
         getBorderColor(borderLeftColor as string, BorderSide.LEFT),
         getBorderColor(borderRightColor as string, BorderSide.RIGHT),
