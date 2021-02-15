@@ -163,13 +163,13 @@ export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
   return useMemo(
     () =>
       [
-        getBackgroundColor(backgroundColor as string),
-        border === true ? [getBorderColor(COLOR.DIVIDER), BORDER_SIZE.normal] : undefined,
-        getBorderColor(borderColor as string),
-        getBorderColor(borderLeftColor as string, BorderSide.LEFT),
-        getBorderColor(borderRightColor as string, BorderSide.RIGHT),
-        getBorderColor(borderTopColor as string, BorderSide.TOP),
-        getBorderColor(borderBottomColor as string, BorderSide.BOTTOM),
+        getBackgroundColor?.(backgroundColor as string),
+        border === true ? [getBorderColor?.(COLOR.DIVIDER), BORDER_SIZE.normal] : undefined,
+        getBorderColor?.(borderColor as string),
+        getBorderColor?.(borderLeftColor as string, BorderSide.LEFT),
+        getBorderColor?.(borderRightColor as string, BorderSide.RIGHT),
+        getBorderColor?.(borderTopColor as string, BorderSide.TOP),
+        getBorderColor?.(borderBottomColor as string, BorderSide.BOTTOM),
         BORDER_RADIUS[borderRadius as BorderRadius],
         BORDER_SIZE[border as BorderSize],
         (padding instanceof Array ? padding : [padding]).map(i => PADDING[i as Padding]),
@@ -200,7 +200,7 @@ export function useShadowStyle({ shadow, shadowColor }: ShadowStyleProps) {
     () =>
       [
         shadow ? SHADOW[shadow] : null,
-        shadowColor ? { shadowColor: getColor(shadowColor) } : null,
+        shadowColor ? { shadowColor: getColor?.(shadowColor) } : null,
       ].filter(i => i != null),
     [getColor, shadow, shadowColor],
   )
@@ -214,7 +214,7 @@ export function useTextStyle(props: TextStyleProps | undefined = {}) {
   return useMemo(
     () =>
       [
-        getTextColor(textColor as string),
+        getTextColor?.(textColor as string),
         LINE_HEIGHT[lineHeight as LineHeight],
         FONT_SIZE[fontSize as FontSize],
       ].filter(i => i != null),
