@@ -1,4 +1,13 @@
-import React, { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import { Appearance, AppState, StatusBar } from 'react-native'
 
 export enum COLOR {
   PRIMARY = 'PRIMARY',
@@ -57,13 +66,41 @@ export interface ThemeConfig {
 }
 
 interface Props {
+  autoSwitchTheme?: boolean
+  autoSwitchStatusBar?: boolean
   theme: string
   themes: { [id: string]: ThemeConfig }
   children: ReactNode | ReactNode[]
 }
 
-export function ThemeProvider({ theme, themes = {}, children }: Props) {
+export function ThemeProvider({
+  theme,
+  themes = {},
+  autoSwitchTheme = true,
+  autoSwitchStatusBar = true,
+  children,
+}: Props) {
   const [themeName, switchTheme] = useState(theme)
+  const [barStyle, setBarStyle] = useState<'dark-content' | 'light-content'>('light-content')
+
+  useEffect(() => {
+    const calculateTheme = () => {
+      switchTheme((Appearance.getColorScheme() as THEME) ?? THEME.DARK)
+      setBarStyle(Appearance.getColorScheme() === 'dark' ? 'light-content' : 'dark-content')
+    }
+    if (autoSwitchTheme) {
+      if (!themes.dark) {
+        console.warn('A theme by name "dark" is not provided. Turning off auto theme switching!')
+      } else if (!themes.light) {
+        console.warn('A theme by name "light" is not provided. Turning off auto theme switching!')
+      } else {
+        AppState.addEventListener('change', calculateTheme)
+      }
+    }
+    return () => {
+      AppState.removeEventListener('change', calculateTheme)
+    }
+  }, [autoSwitchTheme, themes.dark, themes.light])
 
   const getColor = useCallback(
     (name: string, theme?: string) => {
@@ -136,7 +173,12 @@ export function ThemeProvider({ theme, themes = {}, children }: Props) {
       getBorderColor,
     }
   }, [themes, themeName, getColor, getBackgroundColor, getTextColor, getBorderColor])
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  return (
+    <ThemeContext.Provider value={value}>
+      {autoSwitchTheme && autoSwitchStatusBar && <StatusBar barStyle={barStyle} />}
+      {children}
+    </ThemeContext.Provider>
+  )
 }
 
 export function useTheme() {
