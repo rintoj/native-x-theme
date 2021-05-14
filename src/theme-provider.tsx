@@ -95,6 +95,7 @@ export function ThemeProvider({
         console.warn('A theme by name "light" is not provided. Turning off auto theme switching!')
       } else {
         AppState.addEventListener('change', calculateTheme)
+        calculateTheme()
       }
     }
     return () => {
