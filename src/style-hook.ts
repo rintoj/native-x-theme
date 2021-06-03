@@ -23,11 +23,11 @@ export interface BorderColorStyleProps {
 
 export const BORDER_SIZE = {
   none: s.bw0,
-  normal: s.bw1,
-  large: s.bw2,
-  'x-large': s.bw3,
-  'xx-large': s.bw4,
-  'xxx-large': s.bw5,
+  normal: { borderWidth: 1 },
+  large: s.bw1,
+  'x-large': s.bw2,
+  'xx-large': s.bw3,
+  'xxx-large': s.bw4,
 }
 export type BorderSize = keyof typeof BORDER_SIZE
 export interface BorderSizeStyleProps {
