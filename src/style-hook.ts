@@ -215,8 +215,8 @@ export function useTextStyle(props: TextStyleProps | undefined = {}) {
     () =>
       [
         getTextColor?.(textColor as string),
-        LINE_HEIGHT[lineHeight as LineHeight],
         FONT_SIZE[fontSize as FontSize],
+        LINE_HEIGHT[lineHeight as LineHeight],
       ].filter(i => i != null),
     [textColor, fontSize, getTextColor, lineHeight],
   )
