@@ -84,6 +84,7 @@ export function ThemeProvider({
   const [barStyle, setBarStyle] = useState<'dark-content' | 'light-content'>('light-content')
 
   useEffect(() => {
+    let subscription: { remove?: () => void } | undefined
     const calculateTheme = () => {
       switchTheme((Appearance.getColorScheme() as THEME) ?? THEME.DARK)
       setBarStyle(Appearance.getColorScheme() === 'dark' ? 'light-content' : 'dark-content')
@@ -94,11 +95,14 @@ export function ThemeProvider({
       } else if (!themes.light) {
         console.warn('A theme by name "light" is not provided. Turning off auto theme switching!')
       } else {
-        AppState.addEventListener('change', calculateTheme)
+        subscription = AppState.addEventListener('change', calculateTheme) as never
         calculateTheme()
       }
     }
     return () => {
+      if (subscription?.remove) {
+        return subscription.remove()
+      }
       AppState.removeEventListener('change', calculateTheme)
     }
   }, [autoSwitchTheme, themes.dark, themes.light])
