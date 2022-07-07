@@ -102,8 +102,9 @@ export function ThemeProvider({
     return () => {
       if (subscription?.remove) {
         return subscription.remove()
+      } else {
+        AppState.removeEventListener('change', calculateTheme)
       }
-      AppState.removeEventListener('change', calculateTheme)
     }
   }, [autoSwitchTheme, themes.dark, themes.light])
 
