@@ -76,7 +76,7 @@ interface Props {
 export function ThemeProvider({
   theme,
   themes = {},
-  autoSwitchTheme = true,
+  autoSwitchTheme = false,
   autoSwitchStatusBar = true,
   children,
 }: Props) {

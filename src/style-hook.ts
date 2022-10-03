@@ -99,7 +99,7 @@ export const FONT_SIZE = {
 }
 export type FontSize = keyof typeof FONT_SIZE
 export interface FontSizeStyleProps {
-  fontSize?: FontSize
+  fontSize?: FontSize | number
 }
 
 export const PADDING = {
@@ -124,7 +124,40 @@ export const PADDING = {
 }
 export type Padding = keyof typeof PADDING
 export interface PaddingStyleProps {
-  padding?: Padding | Padding[]
+  padding?: Padding | Padding[] | number
+  paddingLeft?: number
+  paddingRight?: number
+  paddingTop?: number
+  paddingBottom?: number
+  paddingHorizontal?: number
+  paddingVertical?: number
+}
+
+export function getPadding({
+  padding,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingBottom,
+  paddingHorizontal,
+  paddingVertical,
+}: PaddingStyleProps) {
+  const paddingStyle = (padding instanceof Array ? padding : [padding]).map(
+    i => PADDING[i as Padding],
+  )
+  return [
+    typeof padding === 'number' ? { padding } : paddingStyle,
+    paddingLeft !== undefined ? { paddingLeft } : null,
+    paddingRight !== undefined ? { paddingRight } : null,
+    paddingTop !== undefined ? { paddingTop } : null,
+    paddingBottom !== undefined ? { paddingBottom } : null,
+    paddingHorizontal !== undefined
+      ? { paddingLeft: paddingHorizontal, paddingRight: paddingHorizontal }
+      : null,
+    paddingVertical !== undefined
+      ? { paddingTop: paddingVertical, paddingBottom: paddingVertical }
+      : null,
+  ].filter(i => i !== null)
 }
 
 export const LINE_HEIGHT = {
@@ -134,7 +167,7 @@ export const LINE_HEIGHT = {
 }
 export type LineHeight = keyof typeof LINE_HEIGHT
 export interface LineHeightStyleProps {
-  lineHeight?: LineHeight
+  lineHeight?: LineHeight | number
 }
 
 export type ContainerStyleProps = BackgroundColorStyleProps &
@@ -151,7 +184,6 @@ export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
     backgroundColor,
     borderRadius,
     border,
-    padding,
     opacity,
     borderColor,
     borderLeftColor,
@@ -172,13 +204,14 @@ export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
         getBorderColor?.(borderBottomColor as string, BorderSide.BOTTOM),
         BORDER_RADIUS[borderRadius as BorderRadius],
         BORDER_SIZE[border as BorderSize],
-        (padding instanceof Array ? padding : [padding]).map(i => PADDING[i as Padding]),
         OPACITY[opacity as Opacity],
+        getPadding(props),
         shadowStyle,
       ].filter(i => i != null),
     [
       getBackgroundColor,
       backgroundColor,
+      border,
       getBorderColor,
       borderColor,
       borderLeftColor,
@@ -186,8 +219,7 @@ export function useContainerStyle(props: ContainerStyleProps | undefined = {}) {
       borderTopColor,
       borderBottomColor,
       borderRadius,
-      border,
-      padding,
+      props,
       opacity,
       shadowStyle,
     ],
@@ -215,8 +247,8 @@ export function useTextStyle(props: TextStyleProps | undefined = {}) {
     () =>
       [
         getTextColor?.(textColor as string),
-        FONT_SIZE[fontSize as FontSize],
-        LINE_HEIGHT[lineHeight as LineHeight],
+        typeof fontSize === 'number' ? { fontSize } : FONT_SIZE[fontSize as FontSize],
+        typeof lineHeight === 'number' ? { lineHeight } : LINE_HEIGHT[lineHeight as LineHeight],
       ].filter(i => i != null),
     [textColor, fontSize, getTextColor, lineHeight],
   )

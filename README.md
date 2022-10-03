@@ -187,13 +187,13 @@ function MyComponent({ shadow, shadowColor }: Props) {
 ### `autoSwitchTheme`
 
 `ThemeProvider` will automatically switch between `dark` and `light` theme depending on system
-appearance. By default this value is set to `true`. Auto theme switching won't work if you don't
+appearance. By default this value is set to `false`. Auto theme switching won't work if you don't
 have themes by name `dark` (THEME.DARK) and `light` (THEME.LIGHT).
 
 ### `autoSwitchStatusBar`
 
 `ThemeProvider` will automatically switch status bar content to `dark-content` or `light-content`
-depending on system appearance. By default this value is set to `true` and works only when both
+depending on system appearance. By default this value is set to `false` and works only when both
 `autoSwitchStatusBar` and `autoSwitchTheme` is set to true.
 
 ## Automatic Release
